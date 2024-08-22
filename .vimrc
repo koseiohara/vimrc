@@ -1,3 +1,4 @@
+
 " tab width -> 4
 set tabstop=4
 " auto indent width -> 4
@@ -9,11 +10,18 @@ set autoindent
 
 set expandtab
 
+" if file is grads script, insert (tabstop) spaces when tab key is pressed
+"autocmd BufRead,BufNewFile *.gs set expandtab
+autocmd BufRead,BufNewFile Makefile set noexpandtab
+autocmd BufNewFile,BufRead *.nml set filetype=fortran
+augroup start_at_first_line
+  "autocmd!
+  autocmd BufReadPost COMMIT_EDITMSG if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! gg' | endif
+augroup END
+
+
 " display line number
 set number
-
-" change title type
-set title
 
 " set character color
 syntax on
@@ -36,10 +44,6 @@ set autoread
 " max number of character -> 132 (follow Fortran free form)
 set textwidth=132
 
-" if file is grads script, insert (tabstop) spaces when tab key is pressed
-"autocmd BufRead,BufNewFile *.gs set expandtab
-autocmd BufRead,BufNewFile Makefile set noexpandtab
-
 " always display status line
 set laststatus=2
 " display machine name
@@ -55,4 +59,10 @@ set statusline+=[%{&fileencoding}]
 set statusline+=[LINE:%l/%L]
 " present column
 set statusline+=[COLUMN:%c]
+
+" change title type
+set title
+set titlestring=[%{matchstr(hostname(),'\\w\\+')}]
+set titlestring+=\ [%F]
+
 
