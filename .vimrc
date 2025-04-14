@@ -8,12 +8,15 @@ set softtabstop=0
 set smartindent
 set autoindent
 
+nnoremap x "_x
+nnoremap s "_s
+
 set expandtab
 
 " if file is grads script, insert (tabstop) spaces when tab key is pressed
 "autocmd BufRead,BufNewFile *.gs set expandtab
 autocmd BufRead,BufNewFile Makefile set noexpandtab
-autocmd BufNewFile,BufRead *.nml set filetype=fortran
+autocmd BufRead,BufNewFile *.nml set filetype=fortran
 augroup start_at_first_line
   "autocmd!
   autocmd BufReadPost COMMIT_EDITMSG if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! gg' | endif
@@ -42,7 +45,8 @@ highlight CursorColumn cterm=NONE ctermbg=234
 set autoread
 
 " max number of character -> 132 (follow Fortran free form)
-set textwidth=132
+set textwidth=0
+autocmd BufRead,BufNewFile *.f90 set textwidth=132
 
 " always display status line
 set laststatus=2
