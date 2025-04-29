@@ -1,4 +1,4 @@
-
+let mapleader = " "
 " tab width -> 4
 set tabstop=4
 " auto indent width -> 4
@@ -17,22 +17,46 @@ noremap <S-w> e
 noremap <S-b> ge
 nnoremap x "_x
 nnoremap s "_s
+nnoremap <Leader> za
+" noremap <CR> zf
+" noremap <BS> zd
+" noremap <Leader>d zE
+noremap <CR> zx
+noremap z0 zM
+noremap z1 zR
 
 
 command! -nargs=* Show call ShowLines(<f-args>)
 cabbrev show Show
-command! Mv call s:ReplaceHighlighted()
-cabbrev mv Mv
+command! Rpl call s:ReplaceHighlighted()
+cabbrev rpl Rpl
 
 command! Reln set relativenumber
 command! Noreln set norelativenumber
 cabbrev reln Reln
 cabbrev noreln Noreln
 
-
+" 2 additional lines will always be displaied
 set scrolloff=2
-
+" Tab to spaces
 set expandtab
+" display line number
+set number
+" set character color
+syntax on
+colorscheme elflord
+
+
+" remember fold information and cursor position
+set viewoptions=folds
+augroup RememberFolds
+    autocmd!
+    autocmd BufWinLeave * silent! mkview
+    autocmd BufWinEnter * silent! loadview
+augroup END
+set foldmethod=indent
+set foldcolumn=1
+
 
 " if file is grads script, insert (tabstop) spaces when tab key is pressed
 "autocmd BufRead,BufNewFile *.gs set expandtab
@@ -44,13 +68,6 @@ augroup start_at_first_line
 augroup END
 
 
-" display line number
-set number
-
-" set character color
-syntax on
-colorscheme elflord
-
 " highlight the line and column where the cursor exist
 set cursorline
 set cursorcolumn
@@ -59,6 +76,8 @@ highlight clear
 " remove underline and set background color as 234 (see https://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html)
 highlight CursorLine   cterm=NONE ctermbg=234
 highlight CursorColumn cterm=NONE ctermbg=234
+highlight Folded       cterm=NONE ctermbg=18  ctermfg=202
+highlight Search                  ctermbg=240 ctermfg=9
 " color line number
 " highlight CursorLineNr ctermfg=black ctermbg=grey
 
