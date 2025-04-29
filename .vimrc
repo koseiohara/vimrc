@@ -8,8 +8,29 @@ set softtabstop=0
 set smartindent
 set autoindent
 
+" rewrite some commands
+noremap <S-h> ^
+noremap <S-l> $
+noremap <S-k> gg
+noremap <S-j> G
+noremap <S-w> e
+noremap <S-b> ge
 nnoremap x "_x
 nnoremap s "_s
+
+
+command! -nargs=* Show call ShowLines(<f-args>)
+cabbrev show Show
+command! Mv call s:ReplaceHighlighted()
+cabbrev mv Mv
+
+command! Reln set relativenumber
+command! Noreln set norelativenumber
+cabbrev reln Reln
+cabbrev noreln Noreln
+
+
+set scrolloff=2
 
 set expandtab
 
@@ -68,5 +89,41 @@ set statusline+=[COLUMN:%c]
 set title
 set titlestring=[%{matchstr(hostname(),'\\w\\+')}]
 set titlestring+=\ [%F]
+
+
+" function! ShowLines(startline, nlines)
+function! ShowLines(...)
+    let args = a:000
+    if (len(args) < 1)
+        echo getline('.')
+        return
+    endif
+    let startline = str2nr(args[0])
+    let nline = (len(args) >= 2 ? str2nr(args[1]) : 1)
+    let endline = startline + nline - 1
+    echo join(getline(startline, endline), "\n")
+endfunction
+
+
+function! s:ReplaceHighlighted()
+    let l:old = getreg('/')
+    if (l:old[0:1] == '\<' && l:old[-2:-1] == '\>')
+        let l:old = l:old[2:-3]
+    endif
+    
+    let l:old = escape(l:old, '/')
+
+    let l:prmpt = printf('replace %s to ', l:old)
+    let l:new =  input(l:prmpt)
+    if empty(l:new)
+        echohl WarningMsg
+        echo '=> Warning : Specify a new word! mv command was canceled'
+        echohl None
+        return
+    endif
+    let l:new = escape(l:new, '/')
+    execute '%s/\V'.l:old.'/'.l:new.'/g'
+endfunction
+
 
 
