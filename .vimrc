@@ -25,6 +25,13 @@ noremap <CR> zx
 noremap z0 zM
 noremap z1 zR
 
+nnoremap <silent> <Tab>   :tabnext<CR>
+nnoremap <silent> <S-Tab> :tabprevious<CR>
+nnoremap <silent> <C-l> :wincmd l<CR>
+nnoremap <silent> <C-h> :wincmd h<CR>
+nnoremap <silent> <C-k> :wincmd k<CR>
+nnoremap <silent> <C-j> :wincmd j<CR>
+
 
 command! -nargs=* Show call ShowLines(<f-args>)
 cabbrev show Show
@@ -35,6 +42,9 @@ command! Reln set relativenumber
 command! Noreln set norelativenumber
 cabbrev reln Reln
 cabbrev noreln Noreln
+
+command! Hs split
+cabbrev hs Hs
 
 " 2 additional lines will always be displaied
 set scrolloff=2
@@ -145,6 +155,7 @@ function! s:ReplaceHighlighted()
     let l:new = escape(l:new, '/')
     execute '%s/\V'.l:old.'/'.l:new.'/g'
 endfunction
+
 
 
 
