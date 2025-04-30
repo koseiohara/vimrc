@@ -64,7 +64,7 @@ augroup END
 autocmd BufRead,BufNewFile Makefile set noexpandtab
 autocmd BufRead,BufNewFile *.nml set filetype=fortran
 augroup start_at_first_line
-  "autocmd!
+  autocmd!
   autocmd BufReadPost COMMIT_EDITMSG if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! gg' | endif
 augroup END
 
@@ -119,8 +119,9 @@ function! ShowLines(...)
         return
     endif
     let startline = str2nr(args[0])
-    let nline = (len(args) >= 2 ? str2nr(args[1]) : 1)
-    let endline = startline + nline - 1
+    " let nline = (len(args) >= 2 ? str2nr(args[1]) : 1)
+    " let endline = startline + nline - 1
+    let endline = (len(args) >= 2 ? str2nr(args[1]) : l:startline)
     echo join(getline(startline, endline), "\n")
 endfunction
 
@@ -137,7 +138,7 @@ function! s:ReplaceHighlighted()
     let l:new =  input(l:prmpt)
     if empty(l:new)
         echohl WarningMsg
-        echo '=> Warning : Specify a new word! mv command was canceled'
+        echo '=> Warning : Specify a new word! rpl command was canceled'
         echohl None
         return
     endif
