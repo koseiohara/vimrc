@@ -48,14 +48,15 @@ colorscheme elflord
 
 
 " remember fold information and cursor position
+set foldmethod=indent
+set foldcolumn=1
+set foldlevelstart=99
 set viewoptions=folds
 augroup RememberFolds
     autocmd!
     autocmd BufWinLeave * silent! mkview
     autocmd BufWinEnter * silent! loadview
 augroup END
-set foldmethod=indent
-set foldcolumn=1
 
 
 " if file is grads script, insert (tabstop) spaces when tab key is pressed
