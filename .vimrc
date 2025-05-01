@@ -17,20 +17,37 @@ noremap <S-w> e
 noremap <S-b> ge
 nnoremap x "_x
 nnoremap s "_s
-nnoremap <Leader> za
+nnoremap ; :
+
+nnoremap <Leader><CR> za
 " noremap <CR> zf
 " noremap <BS> zd
 " noremap <Leader>d zE
-noremap <CR> zx
+noremap <Leader>r zx
 noremap z0 zM
 noremap z1 zR
 
+" keymaps for multi-tab
 nnoremap <silent> <Tab>   :tabnext<CR>
 nnoremap <silent> <S-Tab> :tabprevious<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
+
+" keymaps for multi-window
+nnoremap <silent> <C-l>   :wincmd l<CR>
+nnoremap <silent> <C-h>   :wincmd h<CR>
+nnoremap <silent> <C-k>   :wincmd k<CR>
+nnoremap <silent> <C-j>   :wincmd j<CR>
+nnoremap <silent> <Leader>vs   :vsplit<CR>
+nnoremap <silent> <Leader>hs   :split<CR>
+nnoremap <silent> <Leader><BS> :close<CR>
+nnoremap <silent> <Leader>l  <C-w>><CR>
+nnoremap <silent> <Leader>h  <C-w><<CR>
+nnoremap <silent> <Leader>k  <C-w>+<CR>
+nnoremap <silent> <Leader>j  <C-w>-<CR>
+nnoremap <silent> <Leader>eq <C-w>=<CR>
+
+" keep visual mode when < or > is executed
+vnoremap < <gv
+vnoremap > >gv
 
 
 command! -nargs=* Show call ShowLines(<f-args>)
@@ -43,8 +60,6 @@ command! Noreln set norelativenumber
 cabbrev reln Reln
 cabbrev noreln Noreln
 
-command! Hs split
-cabbrev hs Hs
 
 " 2 additional lines will always be displaied
 set scrolloff=2
@@ -61,7 +76,7 @@ colorscheme elflord
 set foldmethod=indent
 set foldcolumn=1
 set foldlevelstart=99
-set viewoptions=folds
+set viewoptions=folds,cursor
 augroup RememberFolds
     autocmd!
     autocmd BufWinLeave * silent! mkview
@@ -74,7 +89,7 @@ augroup END
 autocmd BufRead,BufNewFile Makefile set noexpandtab
 autocmd BufRead,BufNewFile *.nml set filetype=fortran
 augroup start_at_first_line
-  autocmd!
+  " autocmd!
   autocmd BufReadPost COMMIT_EDITMSG if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! gg' | endif
 augroup END
 
