@@ -30,14 +30,17 @@ noremap z1 zR
 " keymaps for multi-tab
 nnoremap <silent> <Tab>   :tabnext<CR>
 nnoremap <silent> <S-Tab> :tabprevious<CR>
+nnoremap <Leader>topen    :tabnew 
 
 " keymaps for multi-window
 nnoremap <silent> <C-l>   :wincmd l<CR>
 nnoremap <silent> <C-h>   :wincmd h<CR>
 nnoremap <silent> <C-k>   :wincmd k<CR>
 nnoremap <silent> <C-j>   :wincmd j<CR>
-nnoremap <silent> <Leader>vs   :vsplit<CR>
-nnoremap <silent> <Leader>hs   :split<CR>
+nnoremap <silent> <Leader>vs :vsplit<CR>
+nnoremap <silent> <Leader>hs :split<CR>
+nnoremap <Leader>vopen :vsplit
+nnoremap <Leader>hopen :split
 nnoremap <silent> <Leader><BS> :close<CR>
 nnoremap <silent> <Leader>l  <C-w>><CR>
 nnoremap <silent> <Leader>h  <C-w><<CR>
