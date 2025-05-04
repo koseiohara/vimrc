@@ -49,6 +49,7 @@ nnoremap <silent> <Leader>j  <C-w>-<CR>
 nnoremap <silent> <Leader>eq <C-w>=<CR>
 
 inoremap kj <Esc>
+vnoremap kj <Esc>
 
 " keep visual mode when < or > is executed
 vnoremap < <gv
@@ -114,7 +115,9 @@ highlight LineNr                  ctermfg=254 ctermbg=233
 highlight CursorLineNr            ctermfg=216 ctermbg=16
 highlight FoldColumn              ctermfg=9   ctermbg=0
 " Statusline Color Settings
-highlight SCMode       cterm=bold ctermfg=0   ctermbg=117
+highlight SCModeIns    cterm=bold ctermfg=0   ctermbg=47
+highlight SCModeNor    cterm=bold ctermfg=0   ctermbg=117
+highlight SCModeVis    cterm=bold ctermfg=0   ctermbg=200
 highlight SCHost       cterm=bold ctermfg=255 ctermbg=237
 highlight SCPath                  ctermfg=255 ctermbg=240
 highlight SCFile       cterm=bold ctermfg=0   ctermbg=255
@@ -132,22 +135,8 @@ autocmd BufRead,BufNewFile *.f90 set textwidth=132
 
 " always display status line
 set laststatus=2
-set statusline=
+set statusline=%!MyStatusLine()
 
-set statusline+=\%#SCMode#\ [%{get(g:modename,mode(),mode())}]
-" display machine name
-set statusline+=\ \%#SCHost#\ [%{matchstr(hostname(),'\\w\\+')}]
-" display filename (absolute path)
-set statusline+=\ \%#SCPath#\ %F
-" right alignment
-set statusline+=%=
-" display encoding type
-" set statusline+=\ [%{&fileencoding}]
-set statusline+=\%#SCFile#\ [%{&fileencoding}]
-" present line / total line
-set statusline+=\%#SCFile#\ [LINE:%l/%L]
-" present column
-set statusline+=\%#SCFile#\ [COLUMN:%c]
 
 " change title type
 set title
@@ -189,6 +178,35 @@ function! s:ReplaceHighlighted()
     let l:new = escape(l:new, '/')
     execute '%s/\V'.l:old.'/'.l:new.'/g'
 endfunction
+
+
+function! MyStatusLine()
+    let l:md = mode()
+    " Select highlight Scheme
+    if (l:md == 'i')
+        let l:mdcolor = '%#SCModeIns#'
+    elseif (l:md == 'v' || l:md == 'V' || l:md == "\<C-v>")
+        let l:mdcolor = '%#SCModeVis#'
+    else
+        let l:mdcolor = '%#SCModeNor#'
+    endif
+    " Display Present Mode
+    let s = l:mdcolor . ' ' . get(g:modename, l:md, l:md) . ' %*'
+    " Display Host Name
+    let s.= '%#SCHost# '. '['. matchstr(hostname(),'\w\+') .'] '
+    " Display File Name
+    let s.= '%#SCPath# %.75F (%Y) '
+    " to right
+    let s.= '%='
+    " Display File Format
+    let s.= '%#SCFile# [' . &fileencoding . ']'
+    " Display Cursor Line
+    let s.= '%#SCFile# [LINE:%l/%L]'
+    " Display Cursor Column
+    let s.= '%#SCFile# [COLUMN:%c]'
+    return s
+endfunction
+
 
 
 let g:modename  = {'n': 'NORMAL'  , 'i': 'INSERT'  , 'v': 'VISUAL'  , 'V': 'V-LINE'  , "\<C-v>": 'V-BLOCK'  , 'R': 'REPLACE', 'c': 'COMMAND', 't': 'TERMINAL'}
