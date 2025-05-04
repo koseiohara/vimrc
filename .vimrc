@@ -39,14 +39,16 @@ nnoremap <silent> <C-k>   :wincmd k<CR>
 nnoremap <silent> <C-j>   :wincmd j<CR>
 nnoremap <silent> <Leader>vs :vsplit<CR>
 nnoremap <silent> <Leader>hs :split<CR>
-nnoremap <Leader>vopen :vsplit
-nnoremap <Leader>hopen :split
+nnoremap <Leader>vopen :vsplit 
+nnoremap <Leader>hopen :split 
 nnoremap <silent> <Leader><BS> :close<CR>
 nnoremap <silent> <Leader>l  <C-w>><CR>
 nnoremap <silent> <Leader>h  <C-w><<CR>
 nnoremap <silent> <Leader>k  <C-w>+<CR>
 nnoremap <silent> <Leader>j  <C-w>-<CR>
 nnoremap <silent> <Leader>eq <C-w>=<CR>
+
+inoremap kj <Esc>
 
 " keep visual mode when < or > is executed
 vnoremap < <gv
@@ -106,9 +108,16 @@ highlight clear
 highlight CursorLine   cterm=NONE ctermbg=234
 highlight CursorColumn cterm=NONE ctermbg=234
 highlight Folded       cterm=NONE ctermbg=18  ctermfg=202
-highlight Search                  ctermbg=240 ctermfg=9
-" color line number
-" highlight CursorLineNr ctermfg=black ctermbg=grey
+highlight Search                  ctermbg=237 ctermfg=9
+highlight LineNr                  ctermfg=254 ctermbg=233
+highlight CursorLineNr            ctermfg=216 ctermbg=16
+highlight FoldColumn              ctermfg=9   ctermbg=0
+" Statusline Color Settings
+highlight SCMode       cterm=bold ctermfg=0   ctermbg=117
+highlight SCHost       cterm=bold ctermfg=255 ctermbg=237
+highlight SCPath                  ctermfg=255 ctermbg=240
+highlight SCFile       cterm=bold ctermfg=0   ctermbg=255
+
 
 " automatically reflects updates of the opened file if it is written by others
 set autoread
@@ -117,21 +126,25 @@ set autoread
 set textwidth=0
 autocmd BufRead,BufNewFile *.f90 set textwidth=132
 
+
 " always display status line
 set laststatus=2
+set statusline=
+
+set statusline+=\%#SCMode#\ [%{get(g:modename,mode(),mode())}]
 " display machine name
-set statusline=\ [%{matchstr(hostname(),'\\w\\+')}]
+set statusline+=\ \%#SCHost#\ [%{matchstr(hostname(),'\\w\\+')}]
 " display filename (absolute path)
-set statusline+=\ %F
+set statusline+=\ \%#SCPath#\ %F
 " right alignment
 set statusline+=%=
 " display encoding type
 " set statusline+=\ [%{&fileencoding}]
-set statusline+=[%{&fileencoding}]
+set statusline+=\%#SCFile#\ [%{&fileencoding}]
 " present line / total line
-set statusline+=[LINE:%l/%L]
+set statusline+=\%#SCFile#\ [LINE:%l/%L]
 " present column
-set statusline+=[COLUMN:%c]
+set statusline+=\%#SCFile#\ [COLUMN:%c]
 
 " change title type
 set title
@@ -173,6 +186,10 @@ function! s:ReplaceHighlighted()
     let l:new = escape(l:new, '/')
     execute '%s/\V'.l:old.'/'.l:new.'/g'
 endfunction
+
+
+let g:modename  = {'n': 'NORMAL'  , 'i': 'INSERT'  , 'v': 'VISUAL'  , 'V': 'V-LINE'  , "\<C-v>": 'V-BLOCK'  , 'R': 'REPLACE', 'c': 'COMMAND', 't': 'TERMINAL'}
+
 
 
 
