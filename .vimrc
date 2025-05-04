@@ -72,6 +72,7 @@ set scrolloff=2
 set expandtab
 " display line number
 set number
+set numberwidth=5
 " set character color
 syntax on
 colorscheme elflord
