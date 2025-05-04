@@ -119,6 +119,8 @@ highlight SCHost       cterm=bold ctermfg=255 ctermbg=237
 highlight SCPath                  ctermfg=255 ctermbg=240
 highlight SCFile       cterm=bold ctermfg=0   ctermbg=255
 
+highlight VertSplit               ctermfg=245 ctermbg=245
+
 
 " automatically reflects updates of the opened file if it is written by others
 set autoread
