@@ -93,13 +93,12 @@ augroup RememberFolds
 augroup END
 
 
-" if file is grads script, insert (tabstop) spaces when tab key is pressed
-"autocmd BufRead,BufNewFile *.gs set expandtab
 autocmd BufRead,BufNewFile Makefile set noexpandtab
 autocmd BufRead,BufNewFile *.nml set filetype=fortran
 augroup start_at_first_line
-  " autocmd!
-  autocmd BufReadPost COMMIT_EDITMSG if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! gg' | endif
+  autocmd!
+  autocmd FileType gitcommit setlocal viewoptions=
+  autocmd FileType gitcommit execute 'normal! gg'
 augroup END
 
 
