@@ -18,7 +18,10 @@ noremap <S-b> ge
 nnoremap x "_x
 nnoremap s "_s
 nnoremap ; :
+nnoremap <Leader>q q:
+noremap  q: <Nop>
 
+" keymaps for folding
 nnoremap <Leader><CR> za
 " noremap <CR> zf
 " noremap <BS> zd
@@ -49,7 +52,6 @@ nnoremap <silent> <Leader>j  <C-w>-<CR>
 nnoremap <silent> <Leader>eq <C-w>=<CR>
 
 inoremap kj <Esc>
-vnoremap kj <Esc>
 
 " keep visual mode when < or > is executed
 vnoremap < <gv
@@ -112,7 +114,7 @@ highlight CursorColumn cterm=NONE ctermbg=234
 highlight Folded       cterm=NONE ctermbg=18  ctermfg=202
 highlight Search                  ctermbg=237 ctermfg=9
 highlight LineNr                  ctermfg=254 ctermbg=233
-highlight CursorLineNr            ctermfg=216 ctermbg=16
+highlight CursorLineNr            ctermfg=208 ctermbg=16
 highlight FoldColumn              ctermfg=9   ctermbg=0
 " Statusline Color Settings
 highlight SCModeIns    cterm=bold ctermfg=0   ctermbg=47
