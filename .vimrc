@@ -113,13 +113,13 @@ highlight CursorColumn cterm=NONE ctermbg=234
 " Basic Obj Color
 highlight Folded       cterm=NONE ctermbg=18  ctermfg=202
 highlight Search                  ctermbg=237 ctermfg=9
-highlight LineNr                  ctermfg=254 ctermbg=233
+highlight LineNr                  ctermfg=254 ctermbg=235
 highlight CursorLineNr            ctermfg=208 ctermbg=16
 highlight FoldColumn              ctermfg=9   ctermbg=0
 " Tab Line Color
 highlight TabLine      cterm=NONE ctermfg=255 ctermbg=237
 highlight TabLineSel   cterm=bold ctermfg=255 ctermbg=242
-highlight TabLineFill             ctermfg=232 ctermbg=255
+highlight TabLineFill             ctermfg=232 ctermbg=232
 " Statusline Color Settings
 highlight SCModeIns    cterm=bold ctermfg=0   ctermbg=47
 highlight SCModeNor    cterm=bold ctermfg=0   ctermbg=117
