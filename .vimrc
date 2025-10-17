@@ -15,6 +15,7 @@ noremap <S-k> gg
 noremap <S-j> G
 noremap <S-w> e
 noremap <S-b> ge
+nnoremap <Leader>b %
 nnoremap x "_x
 nnoremap s "_s
 nnoremap ; :
@@ -52,6 +53,8 @@ nnoremap <silent> <Leader>j  <C-w>-<CR>
 nnoremap <silent> <Leader>eq <C-w>=<CR>
 
 inoremap kj <Esc>
+inoremap Kj <Esc>
+inoremap KJ <Esc>
 
 " keep visual mode when < or > is executed
 vnoremap < <gv
@@ -111,8 +114,9 @@ highlight clear
 highlight CursorLine   cterm=NONE ctermbg=234
 highlight CursorColumn cterm=NONE ctermbg=234
 " Basic Obj Color
-highlight Folded       cterm=NONE ctermbg=18  ctermfg=202
-highlight Search                  ctermbg=237 ctermfg=9
+highlight Constant     cterm=NONE ctermfg=10
+highlight Folded       cterm=NONE ctermfg=202 ctermbg=18
+highlight Search       cterm=BOLD ctermfg=226 ctermbg=237
 highlight LineNr                  ctermfg=254 ctermbg=235
 highlight CursorLineNr            ctermfg=208 ctermbg=16
 highlight FoldColumn              ctermfg=9   ctermbg=0
@@ -199,14 +203,15 @@ function! MyStatusLine()
     else
         let l:mdcolor = '%#SCModeNor#'
     endif
-    " Display Present Mode
-    let s = l:mdcolor . ' ' . get(g:modename, l:md, l:md) . ' %*'
-    " Display Host Name
-    let s.= '%#SCHost# '. '['. matchstr(hostname(),'\w\+') .'] '
     " Display File Name
-    let s.= '%#SCPath# %.75F (%Y) '
+    " let s = '%#SCPath# %.55F ('. &filetype . ') '
+    let s = '%#SCPath# %F ('. &filetype . ') '
     " to right
     let s.= '%='
+    " Display Present Mode
+    let s.= l:mdcolor . '  ' . get(g:modename, l:md, l:md) . '  %*'
+    " Display Host Name
+    let s.= '%#SCHost# '. '['. matchstr(hostname(),'\w\+') .'] '
     " Display File Format
     let s.= '%#SCFile# [' . &fileencoding . ']'
     " Display Cursor Line
