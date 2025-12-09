@@ -8,6 +8,9 @@ set softtabstop=0
 set smartindent
 set autoindent
 
+" The Maximum Number of Tab Pages (Default : 10)
+set tabpagemax=50
+
 " rewrite some commands
 noremap <S-h> ^
 noremap <S-l> $
@@ -204,7 +207,6 @@ function! MyStatusLine()
         let l:mdcolor = '%#SCModeNor#'
     endif
     " Display File Name
-    " let s = '%#SCPath# %.55F ('. &filetype . ') '
     let s = '%#SCPath# %F ('. &filetype . ') '
     " to right
     let s.= '%='
