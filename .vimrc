@@ -44,10 +44,10 @@ nnoremap <silent> <Leader>hs :split<CR>
 nnoremap <Leader>vopen :vsplit 
 nnoremap <Leader>hopen :split 
 nnoremap <silent> <Leader><BS> :close<CR>
-nnoremap <silent> <Leader>l  <C-w>><CR>
-nnoremap <silent> <Leader>h  <C-w><<CR>
-nnoremap <silent> <Leader>k  <C-w>+<CR>
-nnoremap <silent> <Leader>j  <C-w>-<CR>
+nnoremap <silent> <right>  <C-w>>
+nnoremap <silent> <left>   <C-w><
+nnoremap <silent> <up>     <C-w>+
+nnoremap <silent> <down>   <C-w>-
 nnoremap <silent> <Leader>eq <C-w>=<CR>
 
 inoremap kj <Esc>
